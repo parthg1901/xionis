@@ -1,0 +1,5 @@
+node_modules
+artifacts
+build
+target
+wasmkit.config.js

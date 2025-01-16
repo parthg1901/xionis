@@ -1,0 +1,45 @@
+[package]
+name = "reclaim-client"
+version = "0.1.0"
+authors = ["Scott Brown <scott@creatoros.com>"]
+edition = "2021"
+
+exclude = [
+    # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.
+    "contract.wasm",
+    "hash.txt",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[package.metadata.scripts]
+optimize = """docker run --rm -v "$(pwd)":/code \
+  --mount type=volume,source="$(basename "$(pwd)")_cache",target=/target \
+  --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
+  cosmwasm/rust-optimizer:0.14.0
+"""
+
+[dependencies]
+cw-storage-plus = "1.1.0"
+cosmwasm-std = "1.5.0"
+cw2 = "1.1.1"
+sha2 = "0.10.8"
+sha3 = { version = "0.10.8"}
+hex = "0.4.3"
+schemars = "0.8.15"
+serde = { version = "1.0.189", default-features = false, features = [
+    "derive",
+    "alloc",
+] }
+serde-json-wasm = "0.2.1"
+thiserror = { version = "1.0.49" }
+ecdsa = { version = "0.16.9", features = ["verifying", "alloc"]}
+k256 = { version = "0.13.3", default-features = false, features = ["ecdsa-core", "ecdsa"] }
+digest = {version = "0.10", default-features = false }
+
+[dev-dependencies]
+cosmwasm-schema = "1.5.0"
+cw-multi-test = "0.16.0"

@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExecuteMsg",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "verify_proof"
+      ],
+      "properties": {
+        "verify_proof": {
+          "$ref": "#/definitions/ProofMsg"
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "definitions": {
+    "ClaimInfo": {
+      "type": "object",
+      "required": [
+        "context",
+        "parameters",
+        "provider"
+      ],
+      "properties": {
+        "context": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        }
+      }
+    },
+    "CompleteClaimData": {
+      "type": "object",
+      "required": [
+        "epoch",
+        "identifier",
+        "owner",
+        "timestampS"
+      ],
+      "properties": {
+        "epoch": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "timestampS": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      }
+    },
+    "Proof": {
+      "type": "object",
+      "required": [
+        "claimInfo",
+        "signedClaim"
+      ],
+      "properties": {
+        "claimInfo": {
+          "$ref": "#/definitions/ClaimInfo"
+        },
+        "signedClaim": {
+          "$ref": "#/definitions/SignedClaim"
+        }
+      }
+    },
+    "ProofMsg": {
+      "type": "object",
+      "required": [
+        "proof"
+      ],
+      "properties": {
+        "proof": {
+          "$ref": "#/definitions/Proof"
+        }
+      }
+    },
+    "SignedClaim": {
+      "type": "object",
+      "required": [
+        "claim",
+        "signatures"
+      ],
+      "properties": {
+        "claim": {
+          "$ref": "#/definitions/CompleteClaimData"
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

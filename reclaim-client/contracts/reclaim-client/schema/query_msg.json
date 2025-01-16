@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QueryMsg",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "empty_function"
+      ],
+      "properties": {
+        "empty_function": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}
