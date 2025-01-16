@@ -1,0 +1,1 @@
+88b5a54a4507db26aecea1a7ba8b4525364172e61a1648488e0c13273e9fae55  lending_protocol.wasm
