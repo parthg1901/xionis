@@ -10,6 +10,7 @@ use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
 use crate::state::{self, *};
 use pyth_sdk_cw::PriceFeed;
 
+// contract addr: xion1hy7p8aq7nlvg2j4v57z5dlwtvvz7awz2wl0sx3d3qrfelt99z8uqd9p6er
 // version info for migration info
 const CONTRACT_NAME: &str = "crates.io:lending_protocol";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -33,7 +34,9 @@ pub fn instantiate(
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
     STATE.save(deps.storage, &state)?;
 
-    Ok(Response::new().add_attribute("method", "instantiate"))
+    Ok(Response::new()
+        .add_attribute("method", "instantiate")
+        .add_attribute("owner", info.sender))
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
