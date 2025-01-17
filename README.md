@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Welcome to XIONIS  
 
-## Getting Started
+**XIONIS** is an innovative cross-chain lending platform that bridges the gap between the Cosmos and EVM ecosystems, providing seamless and efficient access to decentralized finance.  
 
-First, run the development server:
+## The Problems We Solve  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Complexity of Access**:  
+   Accessing the **Cosmos** and **CosmWasm** ecosystems can be intimidating for crypto beginners accustomed to EVM chains like **Arbitrum** and **Avalanche**. XIONIS simplifies this process, allowing users to leverage their existing stablecoins to secure loans on our platform without the steep learning curve.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Inefficiencies in Collateralization**:  
+   Borrowers often face high collateralization requirements. With XIONIS, we solve this by using the **Reclaim Protocol** to calculate credit scores. For users with favorable scores—e.g., those not found involved in malicious activities like rug pulls—collateral requirements are reduced, making borrowing more accessible and equitable.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Limited Ecosystem Support in Cross-Chain Lending**:  
+   By 2023, the total value locked (TVL) in cross-chain bridges surpassed **$10 billion**, but the majority was concentrated in EVM ecosystems. As more users join the blockchain ecosystem, it’s crucial to create a user-friendly platform that extends the benefits of cross-chain DeFi to non-EVM chains like **XION** and beyond.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Key Features  
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Dynamic Collateralization  
+XIONIS integrates **Pyth's price feed** to dynamically assess and update collateral values in real-time. This ensures borrowers always get fair terms based on current market conditions.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Credit Scoring with Reclaim Protocol  
+We leverage the **Reclaim Protocol** to analyze user histories and calculate credit scores. Borrowers with positive credit records benefit from reduced collateral requirements, making the platform more inclusive and rewarding for responsible users.  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. Governance-Driven Ecosystem  
+Borrowers earn **governance tokens** for participating on the platform. These tokens enable them to vote on key proposals, ensuring the community has a say in shaping the future of XIONIS.  
 
-## Deploy on Vercel
+### 4. Cross-Chain Compatibility  
+XIONIS provides seamless access for users from EVM ecosystems, allowing them to bring their stablecoins and interact effortlessly with the **Cosmos** and **XION** ecosystems.  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Why XIONIS?  
+
+- **Ease of Use**: Bridging the gap between EVM and Cosmos ecosystems, we make cross-chain DeFi accessible to everyone.  
+- **Fair and Transparent Lending**: With reduced collateral requirements for users with strong credit histories, we create a more inclusive lending environment.  
+- **Community-Centric Approach**: Governance tokens ensure the platform evolves based on the needs of its community.  
+- **Future-Ready Platform**: As the blockchain space grows, XIONIS positions itself as a friendly, forward-thinking solution for users entering cross-chain DeFi.  
+
+---
+
+Join us as we transform the way people interact with cross-chain lending and borrowing, providing a fair, efficient, and user-centric financial system that works for everyone.  
