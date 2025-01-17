@@ -6,5 +6,6 @@ const reclaim = express.Router();
 
 reclaim.post('/proof', validate(receiveProof), Reclaim.receiveProof);
 reclaim.get('/config/:provider', Reclaim.generateConfig);
+reclaim.get('/:address', Reclaim.getUserVerfiedProviders);
 
 export { reclaim };
