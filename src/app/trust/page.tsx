@@ -45,7 +45,7 @@ function ReclaimDemo() {
     };
 
     const response = await fetch(
-      "http://localhost:8080/api/v1/reclaim/config/" +
+      "https://xionis.onrender.com/api/v1/reclaim/config/" +
         providerNames[providerId as keyof typeof providerNames]
     );
     const { reclaimProofRequestConfig } = await response.json();
@@ -74,7 +74,7 @@ function ReclaimDemo() {
           } else if (typeof proofs !== "string") {
             // When using the default callback url, we get a proof object in the response
             const res = await fetch(
-              "http://localhost:8080/api/v1/reclaim/proof",
+              "https://xionis.onrender.com/api/v1/reclaim/proof",
               {
                 method: "POST",
                 headers: {
@@ -141,7 +141,7 @@ function ReclaimDemo() {
 
           // Fetching user's verified providers
           const userResponse = await fetch(
-            "http://localhost:8080/api/v1/reclaim/" + bech32Address
+            "https://xionis.onrender.com/api/v1/reclaim/" + bech32Address
           );
           const userdata = await userResponse.json();
 
