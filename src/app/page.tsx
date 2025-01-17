@@ -22,8 +22,8 @@ export default function Page(): JSX.Element {
 
   return (
       <main className="m-auto flex min-h-screen max-w-xs flex-col items-center justify-center gap-4 p-4">
-        <h1 className="text-2xl font-bold tracking-tighter text-black dark:text-white">
-          Abstraxion
+        <h1 className="text-[150px] tracking-tighter text-black dark:text-white font-[family-name:var(--font-jersey)]">
+          XIONIS
         </h1>
         <Button
             fullWidth

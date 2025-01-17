@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@burnt-labs/abstraxion": "^1.0.0-alpha.55",
+    "@reclaimprotocol/js-sdk": "^2.1.3",
     "graphql": "^16.10.0",
     "next": "15.1.4",
+    "next-qrcode": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
