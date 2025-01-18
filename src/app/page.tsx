@@ -1,55 +1,25 @@
 "use client";
-import {
-  Abstraxion,
-  useAbstraxionAccount,
-  useModal
-} from "@burnt-labs/abstraxion";
-import { Button } from "@burnt-labs/ui";
-import { JSX, useEffect } from "react";
+import Header from "@/components/header";
+import Link from "next/link";
+import { JSX } from "react";
 
 export default function Page(): JSX.Element {
-  // Abstraxion hooks
-  const { data: { bech32Address }, isConnected, isConnecting } = useAbstraxionAccount();
-
-  // General state hooks
-  const [, setShow] = useModal();
-
-  // watch isConnected and isConnecting
-  // only added for testing
-  useEffect(() => {
-    console.log({ isConnected, isConnecting });
-  }, [isConnected, isConnecting])
-
   return (
-      <main className="m-auto flex min-h-screen max-w-xs flex-col items-center justify-center gap-4 p-4">
-        <h1 className="text-[150px] tracking-tighter text-black dark:text-white font-[family-name:var(--font-jersey)]">
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow flex flex-col items-center justify-center gap-6 p-6">
+        <h1 className="text-[120px] md:text-[150px] text-white tracking-tighter text-center font-[family-name:var(--font-jersey)]">
           XIONIS
         </h1>
-        <Button
-            fullWidth
-            onClick={() => { setShow(true) }}
-            structure="base"
-        >
-          {bech32Address ? (
-              <div className="flex items-center justify-center">VIEW ACCOUNT</div>
-          ) : (
-              "CONNECT"
-          )}
-        </Button>
-        {
-          bech32Address &&
-            <div className="border-2 border-primary rounded-md p-4 flex flex-row gap-4">
-              <div className="flex flex-row gap-6">
-                <div>
-                  address
-                </div>
-                <div>
-                  {bech32Address}
-                </div>
-              </div>
-            </div>
-        }
-        <Abstraxion onClose={() => setShow(false)} />
+        <p className="text-xl md:text-2xl text-white text-center max-w-3xl px-4">
+          XIONIS is a Cross Chain Finance and DAO platform for XION Blockchain.
+          Empowering decentralized finance and governance across multiple
+          ecosystems.
+        </p>
+        <Link href={"/trust"} className="mt-8 px-8 py-3 bg-white text-black rounded-md text-lg font-semibold hover:bg-primary-dark transition duration-300">
+          Get Started
+        </Link>
       </main>
+    </div>
   );
 }

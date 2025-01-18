@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useQRCode } from "next-qrcode";
 import { ReclaimProofRequest, Proof } from "@reclaimprotocol/js-sdk";
 import { useAbstraxionAccount } from "@burnt-labs/abstraxion";
+import Header from "@/components/header";
 
 function ReclaimDemo() {
   // State to store the verification request URL
@@ -24,8 +25,7 @@ function ReclaimDemo() {
     }[]
   >([]);
 
-  const [selectedProviderId, setSelectedProviderId] = useState("");
-  const [showButton, setShowButton] = useState(true);
+  const [, setShowButton] = useState(true);
   const [showQR, setShowQR] = useState(false);
 
   const { Canvas } = useQRCode();
@@ -33,7 +33,7 @@ function ReclaimDemo() {
     data: { bech32Address },
   } = useAbstraxionAccount();
 
-  const [proofs, setProofs] = useState<string[] | Proof | undefined>(undefined);
+  const [, setProofs] = useState<string[] | Proof | undefined>(undefined);
 
   const getVerificationReq = async (providerId: string) => {
     const providerNames = {
@@ -185,10 +185,11 @@ function ReclaimDemo() {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen bg-[#0f172a] text-white">
+      <div className="flex flex-col min-h-screen text-white">
+        <Header/>
         <main className="flex-grow container mx-auto px-4 py-12">
           <div className="max-w-5xl mx-auto">
-            <h1 className="text-5xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+            <h1 className="text-5xl mb-6 text-center text-blue-600 font-[family-name:var(--font-jersey)]">
               XIONIS Trust Score
             </h1>
             <p className="text-xl text-center text-gray-300">
