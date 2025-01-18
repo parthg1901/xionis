@@ -1,5 +1,7 @@
 # Welcome to XIONIS  
 
+<center><img src="./images/logo.png">
+
 **XIONIS** is an innovative cross-chain lending platform that bridges the gap between the Cosmos and EVM ecosystems, providing seamless and efficient access to decentralized finance.  
 
 you can read in detail about Xionis in our wonderful <a href="https://xionis.gitbook.io/xionis-docs">Docs</a>
