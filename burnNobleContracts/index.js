@@ -1,31 +1,31 @@
 require("dotenv").config();
-const {bech32} = require('bech32')
+const { bech32 } = require('bech32')
 const Web3 = require('web3')
 const tokenMessengerAbi = require('./abis/cctp/TokenMessenger.json');
 const usdcAbi = require('./abis/Usdc.json');
 
-const waitForTransaction = async(web3, txHash) => {
+const waitForTransaction = async (web3, txHash) => {
     let transactionReceipt = await web3.eth.getTransactionReceipt(txHash);
-    while(transactionReceipt != null && transactionReceipt.status === 'FALSE') {
+    while (transactionReceipt != null && transactionReceipt.status === 'FALSE') {
         transactionReceipt = await web3.eth.getTransactionReceipt(txHash);
         await new Promise(r => setTimeout(r, 4000));
     }
     return transactionReceipt;
 }
 
-export const burnNoble =  async(ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS , USDC_ETH_CONTRACT_ADDRESS ,ETH_TESTNET_RPC ,ETH_PRIVATE_KEY , nobleAddress , amount ) => {
+export const burnNoble = async (ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS, USDC_ETH_CONTRACT_ADDRESS, ETH_TESTNET_RPC, ETH_PRIVATE_KEY, nobleAddress, amount) => {
     const web3 = new Web3(ETH_TESTNET_RPC);
-    
+
     // Add ETH private key used for signing transactions
     const ethSigner = web3.eth.accounts.privateKeyToAccount(ETH_PRIVATE_KEY);
     web3.eth.accounts.wallet.add(ethSigner);
 
 
     // initialize contracts using address and ABI
-    const ethTokenMessengerContract = new web3.eth.Contract(tokenMessengerAbi, ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS, {from: ethSigner.address});
-    const usdcEthContract = new web3.eth.Contract(usdcAbi, USDC_ETH_CONTRACT_ADDRESS, {from: ethSigner.address});
+    const ethTokenMessengerContract = new web3.eth.Contract(tokenMessengerAbi, ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS, { from: ethSigner.address });
+    const usdcEthContract = new web3.eth.Contract(usdcAbi, USDC_ETH_CONTRACT_ADDRESS, { from: ethSigner.address });
     console.log('Contracts initialized')
-    
+
     // Amount that will be transferred
     const mintRecipient = bech32.fromWords(bech32.decode(nobleAddress).words)
 
@@ -37,12 +37,12 @@ export const burnNoble =  async(ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS , USDC_ETH_
 
     // STEP 1: Approve messenger contract to withdraw from our active eth address
     const approveTxGas = await usdcEthContract.methods.approve(ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS, amount).estimateGas()
-    const approveTx = await usdcEthContract.methods.approve(ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS, amount).send({gas: approveTxGas})
+    const approveTx = await usdcEthContract.methods.approve(ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS, amount).send({ gas: approveTxGas })
     const approveTxReceipt = await waitForTransaction(web3, approveTx.transactionHash);
 
     // STEP 2: Burn USDC
     const burnTxGas = await ethTokenMessengerContract.methods.depositForBurn(amount, 4, mintRecipientHex, USDC_ETH_CONTRACT_ADDRESS).estimateGas();
-    const burnTx = await ethTokenMessengerContract.methods.depositForBurn(amount, 4, mintRecipientHex, USDC_ETH_CONTRACT_ADDRESS).send({gas: burnTxGas});
+    const burnTx = await ethTokenMessengerContract.methods.depositForBurn(amount, 4, mintRecipientHex, USDC_ETH_CONTRACT_ADDRESS).send({ gas: burnTxGas });
     const burnTxReceipt = await waitForTransaction(web3, burnTx.transactionHash);
 
     // STEP 3: Retrieve message bytes from logs
@@ -52,16 +52,35 @@ export const burnNoble =  async(ETH_TOKEN_MESSENGER_CONTRACT_ADDRESS , USDC_ETH_
     const messageBytes = web3.eth.abi.decodeParameters(['bytes'], log.data)[0]
     const messageHash = web3.utils.keccak256(messageBytes);
 
-    let attestationResponse = {status: 'pending'};
-    while(attestationResponse.status != 'complete') {
+    let attestationResponse = { status: 'pending' };
+    while (attestationResponse.status != 'complete') {
         const response = await fetch(`https://iris-api-sandbox.circle.com/attestations/${messageHash}`);
         attestationResponse = await response.json()
         await new Promise(r => setTimeout(r, 2000));
     }
 
     const attestationSignature = attestationResponse.attestation;
-    return [messageBytes , attestationSignature]
-   
+    return [messageBytes, attestationSignature]
+
 
 };
 
+async function ethToNoble() {
+    const [messageHex, attestation] = await burnNoble(
+        process.env.ARBITRUM_TOKEN_MESSENGER_CONTRACT,
+        process.env.ARBITRUM_USDC_ETH_CONTRACT,
+        process.env.ARBITRUM_RPC,
+        process.env.ESCROW_PRIV_KEY,
+        process.env.NOBLE_ADDRESS,
+        amount * 1000000
+    )
+    console.log(messageHex, attestation)
+    if (!process.env.NOBLE_MNEMONIC) throw new HttpException(500, 'Internal Server Error (PaymentUtil.ts)')
+    const txHash = await recieveMessage(
+        process.env.NOBLE_MNEMONIC,
+        messageHex,
+        attestation
+    )
+    console.log(txHash)
+    return txHash
+}
