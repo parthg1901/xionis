@@ -30,45 +30,45 @@ pub fn instantiate(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
-// pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
-//     match msg {
-//         QueryMsg::FetchDelta {} => to_binary(&query_fetch_delta(deps, env)?),
-//     }
-// }
+pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
+    match msg {
+        QueryMsg::FetchDelta {} => to_binary(&query_fetch_delta(deps, env)?),
+    }
+}
 
-// fn query_fetch_delta(deps: Deps, env: Env) -> StdResult<DeltaResponse> {
-//     let state = STATE.load(deps.storage)?;
+fn query_fetch_delta(deps: Deps, env: Env) -> StdResult<DeltaResponse> {
+    let state = STATE.load(deps.storage)?;
 
-//     let mut prices = Vec::new();
-//     let mut current_time = env.block.time.seconds() as i64;
+    let mut prices = Vec::new();
+    let mut current_time = env.block.time.seconds() as i64;
 
-//     // Fetch prices for the last 7 days
-//     for _ in 0..7 {
-//         let price_feed_response: PriceFeedResponse =
-//             query_price_feed(&deps.querier, state.pyth_contract_addr.clone(), state.price_feed_id).unwrap();
+    // Fetch prices for the last 7 days
+    for _ in 0..7 {
+        let price_feed_response: PriceFeedResponse =
+            query_price_feed(&deps.querier, state.pyth_contract_addr.clone(), state.price_feed_id).unwrap();
 
-//         if let Some(price_data) = price_feed_response
-//             .price_feed
-//             .get_price_no_older_than(current_time, 60)
-//         {
-//             prices.push(price_data.price);
-//         } else {
-//             return Err(StdError::generic_err("Price data not available for all days"));
-//         }
+        if let Some(price_data) = price_feed_response
+            .price_feed
+            .get_price_no_older_than(current_time, 60)
+        {
+            prices.push(price_data.price);
+        } else {
+            return Err(StdError::generic_err("Price data not available for all days"));
+        }
 
-//         // Move to the previous day (subtract 1 day in seconds)
-//         current_time -= 86_400;
-//     }
+        // Move to the previous day (subtract 1 day in seconds)
+        current_time -= 86_400;
+    }
 
-//     if prices.len() < 2 {
-//         return Err(StdError::generic_err("Not enough price data to calculate delta"));
-//     }
+    if prices.len() < 2 {
+        return Err(StdError::generic_err("Not enough price data to calculate delta"));
+    }
 
-//     // Calculate the delta (difference between most recent and oldest prices)
-//     let delta = prices[0] - prices[prices.len() - 1];
+    // Calculate the delta (difference between most recent and oldest prices)
+    let delta = prices[0] - prices[prices.len() - 1];
 
-//     Ok(DeltaResponse { prices, delta })
-// }
+    Ok(DeltaResponse { prices, delta })
+}
 
 fn query_delta(deps: Deps, env: Env)->Uint128 {
     let fixed_rate:Uint128 = 150u128.into();

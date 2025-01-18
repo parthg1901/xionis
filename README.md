@@ -2,6 +2,11 @@
 
 **XIONIS** is an innovative cross-chain lending platform that bridges the gap between the Cosmos and EVM ecosystems, providing seamless and efficient access to decentralized finance.  
 
+you can read in detail about Xionis in our wonderful <a href="https://xionis.gitbook.io/xionis-docs">Docs</a>
+
+
+<img src="./images/1.jpeg">
+
 ## The Problems We Solve  
 
 1. **Complexity of Access**:  
@@ -14,6 +19,8 @@
    By 2023, the total value locked (TVL) in cross-chain bridges surpassed **$10 billion**, but the majority was concentrated in EVM ecosystems. As more users join the blockchain ecosystem, it’s crucial to create a user-friendly platform that extends the benefits of cross-chain DeFi to non-EVM chains like **XION** and beyond.  
 
 ---
+
+<img src="./images/2.jpeg">
 
 ## Key Features  
 
@@ -31,6 +38,7 @@ XIONIS provides seamless access for users from EVM ecosystems, allowing them to 
 
 ---
 
+
 ## Why XIONIS?  
 
 - **Ease of Use**: Bridging the gap between EVM and Cosmos ecosystems, we make cross-chain DeFi accessible to everyone.  
@@ -39,5 +47,7 @@ XIONIS provides seamless access for users from EVM ecosystems, allowing them to 
 - **Future-Ready Platform**: As the blockchain space grows, XIONIS positions itself as a friendly, forward-thinking solution for users entering cross-chain DeFi.  
 
 ---
+## Architecture 
+<img src="./images/archi.png">
 
 Join us as we transform the way people interact with cross-chain lending and borrowing, providing a fair, efficient, and user-centric financial system that works for everyone.  
