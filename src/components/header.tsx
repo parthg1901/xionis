@@ -23,7 +23,7 @@ export default function Header() {
       if (bech32Address.length === 0) return; // Skip fetching if wallet isn't connected
       try {
         const response = await fetch(
-          `https://xionis.onrender.com/api/v1/reclaim/${bech32Address}`
+          `https://xionis-sbti.onrender.com/api/v1/reclaim/${bech32Address}`
         );
         const userdata = await response.json();
 
